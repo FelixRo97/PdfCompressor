@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     fileList = new QListWidget(this);
     addButton = new QPushButton("Add Files", this);
+    removeButton = new QPushButton("Remove Selected", this);
     compressButton = new QPushButton("Compress", this);
     presetCombo = new QComboBox(this);
     progressBar = new QProgressBar(this);
@@ -37,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QHBoxLayout *controlsLayout = new QHBoxLayout;
     controlsLayout->addWidget(addButton);
+    controlsLayout->addWidget(removeButton);
     controlsLayout->addWidget(presetCombo);
     controlsLayout->addWidget(compressButton);
 
@@ -51,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(addButton, &QPushButton::clicked,
             this, &MainWindow::addFiles);
+
+    connect(removeButton, &QPushButton::clicked,
+            this, &MainWindow::removeSelected);
 
     connect(compressButton, &QPushButton::clicked,
             this, &MainWindow::startCompression);
@@ -76,6 +81,16 @@ void MainWindow::addFiles()
 
     for (const QString &file : files)
         fileList->addItem(file);
+}
+
+void MainWindow::removeSelected()
+{
+    QList<QListWidgetItem*> selectedItems = fileList->selectedItems();
+
+    for (QListWidgetItem* item : selectedItems)
+    {
+        delete fileList->takeItem(fileList->row(item));
+    }
 }
 
 void MainWindow::startCompression()

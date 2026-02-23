@@ -20,6 +20,7 @@ public:
 
 private slots:
     void addFiles();
+    void removeSelected();
     void startCompression();
     void onFileFinished(const QString &file);
     void onLogMessage(const QString &msg);
@@ -32,6 +33,7 @@ protected:
 private:
     QListWidget *fileList;
     QPushButton *addButton;
+    QPushButton *removeButton;
     QPushButton *compressButton;
     QComboBox *presetCombo;
     QProgressBar *progressBar;
