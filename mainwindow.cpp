@@ -9,6 +9,7 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QLineEdit>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(central);
 
     fileList = new QListWidget(this);
-    addButton = new QPushButton("Add Files", this);
-    removeButton = new QPushButton("Remove Selected", this);
-    compressButton = new QPushButton("Compress", this);
+    addButton = new QPushButton("Hinzufügen", this);
+    removeButton = new QPushButton("Ausgewählte entfernen", this);
+    compressButton = new QPushButton("Komprimieren", this);
     presetCombo = new QComboBox(this);
     progressBar = new QProgressBar(this);
     logOutput = new QTextEdit(this);
@@ -29,13 +30,17 @@ MainWindow::MainWindow(QWidget *parent)
     setAcceptDrops(true);
     fileList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    presetCombo->addItem("Very Small", "/screen");
-    presetCombo->addItem("Small", "/ebook");
+    presetCombo->setEditable(true);
+    presetCombo->lineEdit()->setReadOnly(true);
+    presetCombo->lineEdit()->setAlignment(Qt::AlignCenter);
+
+    presetCombo->addItem("Sehr klein", "/screen");
+    presetCombo->addItem("Klein", "/ebook");
     presetCombo->addItem("Medium ", "/printer");
-    presetCombo->addItem("High Quality", "/prepress");
+    presetCombo->addItem("Qualität", "/prepress");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(new QLabel("Files:"));
+    mainLayout->addWidget(new QLabel("Dateien:"));
     mainLayout->addWidget(fileList);
 
     QHBoxLayout *controlsLayout = new QHBoxLayout;
