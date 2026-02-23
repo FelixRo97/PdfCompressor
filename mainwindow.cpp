@@ -8,6 +8,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QFileInfo>
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     logOutput->setReadOnly(true);
     progressBar->setValue(0);
     setAcceptDrops(true);
+    fileList->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     presetCombo->addItem("Very Small", "/screen");
     presetCombo->addItem("Small", "/ebook");
@@ -145,5 +147,17 @@ void MainWindow::dropEvent(QDropEvent *event)
         {
             fileList->addItem(filePath);
         }
+    }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Delete)
+    {
+        removeSelected();
+    }
+    else
+    {
+        QMainWindow::keyPressEvent(event);
     }
 }
