@@ -39,7 +39,7 @@ void Compressor::processNext()
 
 #ifdef Q_OS_WIN
     QString gsExecutable = QCoreApplication::applicationDirPath()
-                           + "/ghostscript/gswin64c.exe";
+                           + "/ghostscript/gswin64.exe";
 #else
     QString gsExecutable = QCoreApplication::applicationDirPath()
                            + "/ghostscript/gs";
